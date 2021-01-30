@@ -15,6 +15,21 @@
     // function to calculate converted temperature
     function convertTemp($temp, $unit1, $unit2)
     {
+        if ($unit1== "celsius" && $unit2 =="fahrenheit" ) {
+            $temp =  ($temp) * 9/5 + 32;
+        }elseif ($unit1 == "celsius" && $unit2 == "kelvin" ) {
+            $temp = $temp + 273.15;
+        }elseif ($unit1 == "fahrenheit" && $unit2 == "celsius") {
+            $temp = (($temp) - 32) * 5/9;
+        }elseif ($unit1 == "fahrenheit" && $unit2 == "kelvin" ) {
+            $temp = (($temp) + 459.67) * 5/9;
+        }elseif ($unit1 == "kelvin" && $unit2 == "fahrenheit") {
+            $temp = ($temp) * 9/5 - 459.67;
+        }elseif ($unit1 == "kelvin" && $unit2 == "celsius") {
+            $temp = ($temp) - 273.15;
+        }
+        return $temp;
+        //echo $temp;
         // conversion formulas
         // Celsius to Fahrenheit = T(°C) × 9/5 + 32
         // Celsius to Kelvin = T(°C) + 273.15
@@ -39,6 +54,7 @@
         $originalUnit = $_POST['originalunit'];
         $conversionUnit = $_POST['conversionunit'];
         $convertedTemp = convertTemp($originalTemperature, $originalUnit, $conversionUnit);
+        //echo $convertedTemp;
     } // end if
 
     ?>
@@ -63,7 +79,7 @@
 
         <div class="group">
             <label for="convertedtemp">Converted Temperature</label>
-            <input type="text" value="" name="convertedtemp" size="14" maxlength="7" id="convertedtemp" readonly>
+            <input type="text" value="<?= isset($convertedTemp)? $convertedTemp : ""  ?>" name="convertedtemp" size="14" maxlength="7" id="convertedtemp" readonly>
 
             <select name="conversionunit">
                 <option value="--Select--">--Select--</option>
